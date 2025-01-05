@@ -18,10 +18,14 @@ import {
 import { useHotkeys, useLocalStorage } from '@mantine/hooks';
 import { MoonStars, Sun, Trash } from 'tabler-icons-react';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef } from 'react';
 
 function App() {
-  const [tasks, setTasks] = useState([]); // Array of tasks
+  const [tasks, setTasks] = useLocalStorage({ // Tasks state  with local storage  persistence
+    key: 'tasks',
+    defaultValue: [],
+    getInitialValueInEffect: true,
+  });
   const [opened, setOpened] = useState(false); // Modal state
 
   const [colorScheme, setColorScheme] = useLocalStorage({ // Color scheme state
@@ -47,35 +51,15 @@ function App() {
       description,
     };
     setTasks([...tasks, newTask]);
-    saveTasksLocally([...tasks, newTask]);
     console.log('Creating task', newTask, tasks.length);
-  }
-
-  function saveTasksLocally(tasks) { // Save tasks to local storage
-    localStorage.setItem('tasks', JSON.stringify(tasks));
   }
 
   function deleteTask(index) { // Delete a task
     const newTasks = tasks.filter((task, i) => i !== index);
     setTasks(newTasks);
-    saveTasksLocally(newTasks);
   }
-
-  function loadTasksLocally() { // Load tasks from local storage
-    const localTasksStr = localStorage.getItem('tasks');
-    const localTasks = JSON.parse(localTasksStr);
-    console.log('Loading tasks from local storage', localTasks.length);
-    if (localTasks) {
-      setTasks(localTasks);
-    }
-  }
-
-  useEffect(() => { // Load tasks from local storage on component mount
-    loadTasksLocally();
-  }, []);
 
   return (
-    
     <ColorSchemeProvider 
       colorScheme={colorScheme}
       toggleColorScheme={toggleColorScheme}>  
