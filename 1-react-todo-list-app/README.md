@@ -41,9 +41,10 @@ You don't have to ever use `eject`. The curated feature set is suitable for smal
 
 ## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+You can learn more in the:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+* [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+* [中英文对照文档](https://cra.nodejs.cn/docs/getting-started)
 
 ### Code Splitting
 
