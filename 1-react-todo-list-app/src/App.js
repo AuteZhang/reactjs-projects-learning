@@ -1,38 +1,45 @@
 import './App.css';
-import { 
-  MantineProvider,
-  ColorSchemeProvider,
-} from '@mantine/core';
+import { MantineProvider, ColorSchemeProvider } from '@mantine/core';
 import { useHotkeys, useLocalStorage } from '@mantine/hooks';
 
 import TaskManagement from './components/TaskManagement';
 
 function App() {
-  const [colorScheme, setColorScheme] = useLocalStorage({ // Color scheme state
+  const [colorScheme, setColorScheme] = useLocalStorage({
+    // Color scheme state
     key: 'mantine-color-scheme',
     defaultValue: 'light',
     getInitialValueInEffect: true,
-  }); 
-  const toggleColorScheme = value => { // Toggle color scheme
+  });
+  const toggleColorScheme = (value) => {
+    // Toggle color scheme
     setColorScheme(value || (colorScheme === 'light' ? 'dark' : 'light'));
-  }
-  useHotkeys([['mod+k', () => { // Toggle color scheme with hotkey  mod+k (cmd+k)
-    toggleColorScheme();
-  }]]);
+  };
+  useHotkeys([
+    [
+      'mod+k',
+      () => {
+        // Toggle color scheme with hotkey  mod+k (cmd+k)
+        toggleColorScheme();
+      },
+    ],
+  ]);
 
   return (
-    <ColorSchemeProvider 
+    <ColorSchemeProvider
       colorScheme={colorScheme}
-      toggleColorScheme={toggleColorScheme}>  
-      <MantineProvider 
-        theme={{colorScheme}}
+      toggleColorScheme={toggleColorScheme}
+    >
+      <MantineProvider
+        theme={{ colorScheme }}
         withGlobalStyles
-        withNormalizeCSS>
+        withNormalizeCSS
+      >
         <div className="App">
-          <TaskManagement 
+          <TaskManagement
             colorScheme={colorScheme}
             toggleColorScheme={toggleColorScheme}
-            />
+          />
         </div>
       </MantineProvider>
     </ColorSchemeProvider>
